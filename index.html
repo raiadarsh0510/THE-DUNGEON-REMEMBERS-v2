@@ -247,6 +247,156 @@
             color: var(--text-muted);
             font-size: 0.9rem;
         }
+
+        /* Play in Browser Section */
+        .game-section {
+            margin-bottom: 70px;
+        }
+
+        .game-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            margin-top: -24px;
+            margin-bottom: 25px;
+            font-size: 1rem;
+        }
+
+        .game-wrapper {
+            background: #0d0d14;
+            border: 2px solid var(--border-crimson);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7), 0 0 25px rgba(211, 32, 53, 0.2);
+            position: relative;
+        }
+
+        .game-placeholder {
+            min-height: 480px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px 20px;
+            background: radial-gradient(circle at 50% 50%, rgba(139, 24, 39, 0.25) 0%, #0d0d14 75%);
+        }
+
+        .placeholder-content {
+            max-width: 580px;
+        }
+
+        .heart-mini {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto 16px;
+            background: radial-gradient(circle, var(--accent-crimson) 20%, #4a0d15 70%);
+            border-radius: 50%;
+            box-shadow: 0 0 25px var(--accent-crimson);
+            animation: pulse 1.8s infinite ease-in-out;
+        }
+
+        .placeholder-content h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .placeholder-content p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 24px;
+        }
+
+        .play-actions {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .btn-play {
+            background: linear-gradient(135deg, #d32035, #8b1827);
+            border: 1px solid #ff4d64;
+            color: #fff;
+            padding: 14px 32px;
+            font-size: 1.1rem;
+            box-shadow: 0 0 25px rgba(211, 32, 53, 0.5);
+        }
+
+        .btn-play:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 35px rgba(211, 32, 53, 0.8);
+        }
+
+        .controls-hint {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            padding: 8px 16px;
+            font-size: 0.8rem;
+            color: var(--accent-gold);
+        }
+
+        .game-frame-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .game-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #14141e;
+            padding: 10px 18px;
+            border-bottom: 1px solid rgba(139, 24, 39, 0.5);
+        }
+
+        .game-status {
+            color: #22c55e;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .toolbar-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .tool-btn {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #f1f5f9;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.15s;
+        }
+
+        .tool-btn:hover {
+            background: var(--accent-crimson);
+            border-color: var(--accent-crimson);
+        }
+
+        .game-iframe {
+            width: 100%;
+            height: 720px;
+            border: none;
+            background: #000;
+        }
+
+        @media (max-width: 768px) {
+            .game-iframe {
+                height: 480px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -263,16 +413,55 @@
         <div class="heart-core"></div>
 
         <div class="cta-group">
-            <a href="https://github.com/raiadarsh0510/THE-DUNGEON-REMEMBERS" target="_blank" class="btn btn-primary">
-                GitHub Repository
+            <button onclick="loadGame()" class="btn btn-primary" style="cursor: pointer;">
+                ▶ Play in Browser
+            </button>
+            <a href="./game/index.html" target="_blank" class="btn btn-secondary">
+                ⛶ Fullscreen
             </a>
-            <a href="#features" class="btn btn-secondary">
-                Explore Mechanics
+            <a href="https://github.com/raiadarsh0510/THE-DUNGEON-REMEMBERS" target="_blank" class="btn btn-secondary">
+                GitHub Repository
             </a>
         </div>
     </header>
 
     <main>
+        <section id="play-section" class="game-section">
+            <h2 class="section-title" style="margin-bottom: 8px;">Play In Browser</h2>
+            <p class="game-subtitle">Defend your subterranean core against adaptive invader guilds.</p>
+
+            <div class="game-wrapper" id="gameWrapper">
+                <div class="game-placeholder" id="gamePlaceholder">
+                    <div class="placeholder-content">
+                        <div class="heart-mini"></div>
+                        <h3>The Dungeon Awaits</h3>
+                        <p>Launch the in-browser WebGL Godot engine and defend your dungeon core in real-time.</p>
+                        <div class="play-actions">
+                            <button class="btn btn-primary btn-play" onclick="loadGame()">
+                                ▶ Launch Game
+                            </button>
+                            <a href="./game/index.html" target="_blank" class="btn btn-secondary">
+                                ⛶ Open Dedicated Tab
+                            </a>
+                        </div>
+                        <div class="controls-hint">
+                            <span>🎮 [LMB] Place Traps / Minions • [M] Memory Chamber • [Space] Living Dungeon Shift</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="game-frame-container" id="gameFrameContainer" style="display: none;">
+                    <div class="game-toolbar">
+                        <span class="game-status">● Dungeon Core Active</span>
+                        <div class="toolbar-actions">
+                            <button class="tool-btn" onclick="toggleFullscreen()" title="Fullscreen">⛶ Fullscreen</button>
+                            <a href="./game/index.html" target="_blank" class="tool-btn" title="Open in new tab">↗ New Tab</a>
+                        </div>
+                    </div>
+                    <iframe id="gameIframe" class="game-iframe" allow="autoplay; fullscreen; cross-origin-isolated"></iframe>
+                </div>
+            </div>
+        </section>
+
         <section id="features">
             <h2 class="section-title">Core Innovations</h2>
 
@@ -425,6 +614,31 @@
             gain.connect(audioCtx.destination);
             osc.start();
             osc.stop(audioCtx.currentTime + 0.7);
+        }
+
+        function loadGame() {
+            const placeholder = document.getElementById('gamePlaceholder');
+            const container = document.getElementById('gameFrameContainer');
+            const iframe = document.getElementById('gameIframe');
+            
+            placeholder.style.display = 'none';
+            container.style.display = 'flex';
+            if (!iframe.src || iframe.src === 'about:blank' || iframe.src === window.location.href) {
+                iframe.src = './game/index.html';
+            }
+            
+            document.getElementById('play-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function toggleFullscreen() {
+            const iframe = document.getElementById('gameIframe');
+            if (iframe.requestFullscreen) {
+                iframe.requestFullscreen();
+            } else if (iframe.webkitRequestFullscreen) {
+                iframe.webkitRequestFullscreen();
+            } else if (iframe.msRequestFullscreen) {
+                iframe.msRequestFullscreen();
+            }
         }
     </script>
 </body>
